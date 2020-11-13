@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class ResponseServiceImpl {
 
-    final String token = "Bearer jHC2ewoaAQN3BbErxjrlKWcEk8U9P7";
+    final String token = "";
 
     public String getResponseFromJira(String uri) {
 

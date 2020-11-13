@@ -26,6 +26,10 @@ public class FetchWorklogServiceTest {
         worklog = fetchWorklogs.fetchWorklogs(from, to, "TP");
         System.out.println(worklog.size());
 
+        fetchWorklogs.fetchWorklogs(from,to,"TP").forEach(System.out::println);
+
+
+
 
     }
 

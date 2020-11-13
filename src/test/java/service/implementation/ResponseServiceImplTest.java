@@ -8,7 +8,7 @@ public class ResponseServiceImplTest {
 
     ResponseServiceImpl responseService;
 
-    final String uri = "https://api.tempo.io/core/3/worklogs";
+    final String uri = "";
 
     @BeforeEach
     void setUp() {

@@ -5,28 +5,37 @@ import java.util.*;
 
 public class UrlBuildServiceImpl {
 
+    final String firstSeparator = "&";
+    final String url = "";
+    Map<String, String> newList = new LinkedHashMap<>();
+
     public String buildUri(LocalDate from, LocalDate to, int offSet, int limit, String projectKey) {
-        final String firstSeparator = "&";
 
-        String url = "https://api.tempo.io/core/3/worklogs?";
 
-        Map<String, String> newList = new LinkedHashMap<>();
         newList.put("from", String.valueOf(from));
         newList.put("to", String.valueOf(to));
         newList.put("offset", String.valueOf(offSet));
         newList.put("limit", String.valueOf(limit));
         newList.put("project", projectKey);
 
+        return url + buildQueryParams();
+    }
+
+        public StringBuilder buildQueryParams(){
         StringBuilder quaryParams = new StringBuilder();
 
         for (Map.Entry<String, String> entry : newList.entrySet()) {
 
-            quaryParams.append(entry.getKey()).append("=").append(entry.getValue()).append(firstSeparator);
+            quaryParams
+                    .append(entry.getKey())
+                    .append("=")
+                    .append(entry.getValue())
+                    .append(firstSeparator);
         }
-        if (quaryParams.length() > 0)
-            quaryParams.setLength(quaryParams.length() - 1);
 
-        return url + quaryParams;
+        quaryParams.setLength(quaryParams.length() - 1);
+
+        return quaryParams;
     }
 
 }

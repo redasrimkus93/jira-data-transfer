@@ -1,9 +1,5 @@
 package service.implementation;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -15,8 +11,9 @@ import java.util.Map;
 public class FetchUserData {
 
     Map<String, String> map = new HashMap<>();
-    final String url = "https://redasrimkus.atlassian.net/rest/api/3/users/search";
-    final String token = "Basic cmVkYXMucmlta3VzQHRlbGVzb2Z0YXMuY29tOk9sUURuUjRSNVFBMDd0c1hGN0k0QTUwQg==";
+    final String url = "";
+    final String token = "";
+    private final ParseUserData parseUserData = new ParseUserData();
 
     public String getResponse() {
 
@@ -33,7 +30,6 @@ public class FetchUserData {
         try {
             response = client.newCall(request).execute();
             myResponse = response.body().string();
-            parseUserData(myResponse);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -41,31 +37,8 @@ public class FetchUserData {
         return myResponse;
     }
 
-    public void parseUserData(String response) {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        JsonNode actualObj;
-
-        try {
-            actualObj = mapper.readTree(response);
-            for (JsonNode node : actualObj) {
-                JsonNode accountIdNode = node.get("accountId");
-                JsonNode emailAddressNode = node.get("emailAddress");
-
-                if (accountIdNode != null && emailAddressNode != null) {
-                    String accountId = accountIdNode.toString();
-                    String emailAddress = emailAddressNode.toString();
-                    map.put(accountId, emailAddress);
-                }
-            }
-            System.out.println(map);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-    }
-
     public String getUserEmailByAccountId(String accountID) {
+        map = parseUserData.parseUserData(getResponse());
         return map.get(accountID);
     }
 }

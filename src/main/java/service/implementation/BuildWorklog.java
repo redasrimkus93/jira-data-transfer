@@ -11,9 +11,12 @@ import java.util.Collection;
 
 public class BuildWorklog {
 
+    ObjectMapper mapper = new ObjectMapper();
+
+
     public Collection<Worklog> buildWorklog(String response) {
         Collection<Worklog> ourWorklogs = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
+
         try {
             JsonNode actualObj = mapper.readTree(response);
             JsonNode jsonNode = actualObj.get("results");
@@ -35,7 +38,8 @@ public class BuildWorklog {
             }
 
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
+
         }
         return ourWorklogs;
 

@@ -9,12 +9,11 @@ import contract.Worklog;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 public class FetchWorklogService implements FetchWorklogs {
 
-    int offset = 0;
-    int limit = 1;
+    final int offset = 0;
+    final int limit = 1;
 
     private final ResponseServiceImpl responseService = new ResponseServiceImpl();
     private final UrlBuildServiceImpl urlBuildService = new UrlBuildServiceImpl();
@@ -25,7 +24,6 @@ public class FetchWorklogService implements FetchWorklogs {
     @Override
     public Collection<Worklog> fetchWorklogs(LocalDate from, LocalDate to, String... projectKeys) {
         Collection<Worklog> ourWorklogs = new ArrayList<>();
-        fetchUserData.getResponse();
 
         for (String project : projectKeys) {
 
