@@ -2,23 +2,19 @@ package service.implementation;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import contract.Worklog;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class BuildWorklog {
-
-    ObjectMapper mapper = new ObjectMapper();
-
+public class BuildTempoWorklog {
 
     public Collection<Worklog> buildWorklog(String response) {
         Collection<Worklog> ourWorklogs = new ArrayList<>();
 
         try {
-            JsonNode actualObj = mapper.readTree(response);
+            JsonNode actualObj = Utils.mapper.readTree(response);
             JsonNode jsonNode = actualObj.get("results");
 
             for (JsonNode node : jsonNode) {
@@ -38,6 +34,7 @@ public class BuildWorklog {
             }
 
         } catch (JsonProcessingException e) {
+
             throw new RuntimeException(e);
 
         }
